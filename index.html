@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px;
+            font-size: 1.5em;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        .module {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width:20%;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Interface</h1>
+        <a href="#" class="button" onclick="showModule('admin-login')">Admin Login</a>
+        <a href="#" class="button" onclick="showModule('influencer-login')">Influencer Login/Signup</a>
+        <a href="#" class="button" onclick="showModule('brand-promoter-login')">Brand Promoter Login/Signup</a>
+
+        <div class="module" id="admin-login">
+            <h2>Admin Login</h2>
+            <form>
+                <label for="admin-username">Username:</label>
+                <input type="text" id="admin-username" required><br>&nbsp;&nbsp;
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="module" id="influencer-login">
+            <h2>Influencer Login/Signup</h2>
+            <form id="influencer-form">
+                <label for="influencer-email">Email:</label>
+                <input type="email" id="influencer-email" required><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <label for="influencer-password">Password:</label>
+                <input type="password" id="influencer-password" required><br>
+                <button type="submit">Login</button>
+                <p>or</p>
+                <button type="button" onclick="toggleSignup()">Signup</button>
+            </form>
+            <div id="influencer-signup" style="display: none;">
+                <h3>Signup</h3>
+                <label for="influencer-name">Name:</label>
+                <input type="text" id="influencer-name" required>
+                <button type="button" onclick="createInfluencerAccount()">Create Account</button>
+            </div>
+        </div>
+
+        <div class="module" id="brand-promoter-login">
+            <h2>Brand Promoter Login/Signup</h2>
+            <form id="brand-promoter-form">
+                <label for="promoter-email">Email:</label>
+                <input type="email" id="promoter-email" required><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="promoter-password">Password:</label>
+                <input type="password" id="promoter-password" required><br>
+                <button type="submit">Login</button>
+                <p>or</p>
+                <button type="button" onclick="togglePromoterSignup()">Signup</button>
+            </form>
+            <div id="promoter-signup" style="display: none;">
+                <h3>Signup</h3>
+                <label for="promoter-name">Name:</label>
+                <input type="text" id="promoter-name" required>
+                <button type="button" onclick="createPromoterAccount()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showModule(moduleId) {
+            const modules = document.querySelectorAll('.module');
+            modules.forEach(module => {
+                module.style.display = 'none';
+            });
+            document.getElementById(moduleId).style.display = 'block';
+        }
+
+        function toggleSignup() {
+            const signupForm = document.getElementById('influencer-signup');
+            signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function togglePromoterSignup() {
+            const signupForm = document.getElementById('promoter-signup');
+            signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function createInfluencerAccount() {
+            const name = document.getElementById('influencer-name').value;
+            alert(`Influencer account created for: ${name}`);
+            // Add account creation logic here
+        }
+
+        function createPromoterAccount() {
+            const name = document.getElementById('promoter-name').value;
+            alert(`Brand Promoter account created for: ${name}`);
+            // Add account creation logic here
+        }
+    </script>
+</body>
+</html>
