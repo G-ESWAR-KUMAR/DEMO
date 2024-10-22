@@ -138,27 +138,104 @@
             document.getElementById(moduleId).style.display = 'block';
         }
 
-        function toggleSignup() {
-            const signupForm = document.getElementById('influencer-signup');
-            signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
-        }
+        
 
-        function togglePromoterSignup() {
-            const signupForm = document.getElementById('promoter-signup');
-            signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
-        }
+     
+    // Arrays to store registered users with email and password
+    const influencers = [];
+    const brandPromoters = [];
 
-        function createInfluencerAccount() {
-            const name = document.getElementById('influencer-name').value;
+    function showModule(moduleId) {
+        const modules = document.querySelectorAll('.module');
+        modules.forEach(module => {
+            module.style.display = 'none';
+        });
+        document.getElementById(moduleId).style.display = 'block';
+    }
+
+    function validateAdminLogin() {
+        const username = document.getElementById('admin-username').value;
+        const password = document.getElementById('admin-password').value;
+        if (username === 'admin' && password === 'admin') {
+            alert('Admin login successful!');
+            // Add logic for admin actions here
+        } else {
+            alert('Invalid username or password!');
+        }
+    }
+
+    function toggleSignup() {
+        const signupForm = document.getElementById('influencer-signup');
+        signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function togglePromoterSignup() {
+        const signupForm = document.getElementById('promoter-signup');
+        signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function createInfluencerAccount() {
+        const name = document.getElementById('influencer-name').value;
+        const email = document.getElementById('influencer-email').value;
+        const password = document.getElementById('influencer-password').value;
+
+        if (influencers.length < 10) {
+            influencers.push({ name, email, password });
             alert(`Influencer account created for: ${name}`);
-            // Add account creation logic here
+            document.getElementById('influencer-form').reset();
+            toggleSignup(); // Hide signup form
+        } else {
+            alert('Maximum influencer registrations reached.');
         }
+    }
 
-        function createPromoterAccount() {
-            const name = document.getElementById('promoter-name').value;
+    function createPromoterAccount() {
+        const name = document.getElementById('promoter-name').value;
+        const email = document.getElementById('promoter-email').value;
+        const password = document.getElementById('promoter-password').value;
+
+        if (brandPromoters.length < 10) {
+            brandPromoters.push({ name, email, password });
             alert(`Brand Promoter account created for: ${name}`);
-            // Add account creation logic here
+            document.getElementById('brand-promoter-form').reset();
+            togglePromoterSignup(); // Hide signup form
+        } else {
+            alert('Maximum brand promoter registrations reached.');
         }
+    }
+
+    // Adding event listeners for form submissions
+    document.getElementById('admin-login').querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page reload
+        validateAdminLogin();
+    });
+
+    document.getElementById('influencer-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page reload
+        const email = document.getElementById('influencer-email').value;
+        const password = document.getElementById('influencer-password').value;
+
+        const influencer = influencers.find(user => user.email === email && user.password === password);
+        if (influencer) {
+            alert('Influencer login successful!');
+        } else {
+            alert('Invalid influencer credentials!');
+        }
+    });
+
+    document.getElementById('brand-promoter-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page reload
+        const email = document.getElementById('promoter-email').value;
+        const password = document.getElementById('promoter-password').value;
+
+        const promoter = brandPromoters.find(user => user.email === email && user.password === password);
+        if (promoter) {
+            alert('Brand Promoter login successful!');
+        } else {
+            alert('Invalid brand promoter credentials!');
+        }
+    });
+
     </script>
 </body>
 </html>
